@@ -2,28 +2,25 @@ import { StyleSheet } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import AppNavigation from "./components/AppNavigation";
 import { NavigationContainer } from "@react-navigation/native";
-import { useState } from "react";
 import OnboardingNavigation from "./components/OnboardingNavigation";
-import { AuthProvider } from "./AuthContext";
+import { AuthProvider, useAuth } from "./AuthContext";
+
+// A wrapper to access context inside the App component
+const MainNavigator = () => {
+  const { userAuthenticated } = useAuth();
+
+  return (
+    <NavigationContainer>
+      {!userAuthenticated ? <OnboardingNavigation /> : <AppNavigation />}
+    </NavigationContainer>
+  );
+};
 
 export default function App() {
-  const [userAuthenticated, setUserAuthenticated] = useState(false);
-
-  // Function to update authentication state after successful login or signup
-  const updateAuthentication = (authenticated) => {
-    setUserAuthenticated(authenticated);
-  };
-
   return (
     <SafeAreaProvider>
       <AuthProvider>
-        <NavigationContainer>
-          {!userAuthenticated ? (
-            <OnboardingNavigation updateAuthentication={updateAuthentication} />
-          ) : (
-            <AppNavigation />
-          )}
-        </NavigationContainer>
+        <MainNavigator />
       </AuthProvider>
     </SafeAreaProvider>
   );

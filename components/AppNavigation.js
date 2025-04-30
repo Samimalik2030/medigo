@@ -8,6 +8,7 @@ import DoctorListsScreen from "../screens/DoctorListsScreen";
 import DoctorDetailsScreen from "../screens/DoctorDetailsScreen";
 import AppointmentBookingScreen from "../screens/AppointmentBookingScreen";
 import ViewAppointmentsScreen from "../screens/ViewAppointmentsScreen";
+import MyProfileScreen from "../screens/MyProfileScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -27,12 +28,12 @@ const AppNavigation = () => {
 
       <Tab.Screen
         name="Profile"
-        component={ProfileScreen}
+        component={MyProfileScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="person-circle-outline" size={size} color={color} />
           ),
-          headerShown: false,
+          headerShown: true,
         }}
       />
       <Tab.Screen

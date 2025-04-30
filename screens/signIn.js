@@ -15,10 +15,10 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import CustomButton from "../components/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
-import { useAuth } from "../AuthContext"; // Import the useAuth hook
+import { useAuth } from "../AuthContext";
 
 const SignIn = () => {
-  const { updateAuthentication } = useAuth(); // Access the updateAuthentication function from the AuthContext
+  const { updateAuthentication } = useAuth(); 
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -43,8 +43,7 @@ const SignIn = () => {
     return emailRegex.test(email);
   };
 
-  const apiEndpoint =
-    "https://60e1-2409-4088-ae8d-1ce-4a8d-684c-10e6-3d84.ngrok.io/api/auth/signin";
+  const apiEndpoint = "http://192.168.18.25:5000/api/auth/signin";
 
   const handleSignIn = async () => {
     if (!email || !password) {
@@ -60,7 +59,7 @@ const SignIn = () => {
 
     setLoading(true);
     setError(""); // Clear any previous error message
-
+    updateAuthentication(true);
     try {
       const response = await axios.post(apiEndpoint, {
         email,
@@ -68,11 +67,8 @@ const SignIn = () => {
       });
 
       if (response.status === 200) {
-        // Login successful
         Alert.alert("Success", "Login successful!");
-        updateAuthentication(true); // Update authentication state
-        // Explicitly navigate to the "Home" screen
-        navigation.navigate("Home");
+        updateAuthentication(true);
       } else {
         setError("Email or password is incorrect.");
       }

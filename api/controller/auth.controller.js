@@ -2,6 +2,7 @@
 
 const User = require("../Models/User.model");
 const bcrypt = require("bcrypt");
+const jwt = require('jsonwebtoken');
 
 // Signup controller
 exports.signup = async (req, res) => {
@@ -55,31 +56,34 @@ exports.signup = async (req, res) => {
 };
 
 // Login controller
+
 exports.signin = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Check if a user with the provided email exists
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res
-        .status(401)
-        .json({ message: "Email or password is incorrect." });
+      return res.status(401).json({ message: "Email or password is incorrect." });
     }
 
-    // Verify the provided password with the stored hashed password
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
-      return res
-        .status(401)
-        .json({ message: "Email or password is incorrect." });
+      return res.status(401).json({ message: "Email or password is incorrect." });
     }
 
-    // Return a success message or a JWT token for authentication
-    res.status(200).json({ message: "Login successful" });
+    // Generate JWT token
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+      expiresIn: '1h',
+    });
+
+    res.status(200).json({
+      message: "Login successful",
+      token, // include token here
+    });
   } catch (error) {
     res.status(500).json({ message: "Login failed", error: error.message });
   }
 };
+

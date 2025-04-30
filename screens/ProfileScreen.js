@@ -17,34 +17,34 @@ const ProfileScreen = ({ navigation }) => {
   const [image, setImage] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
 
-  const [cameraPermission, requestPermission] = Camera.useCameraPermissions();
+  // const [cameraPermission, requestPermission] = Camera.useCameraPermissions();
 
-  useEffect(() => {
-    requestPermission();
-  }, []);
+  // useEffect(() => {
+  //   requestPermission();
+  // }, []);
 
-  const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
+  // const pickImage = async () => {
+  //   let result = await ImagePicker.launchImageLibraryAsync({
+  //     mediaTypes: ImagePicker.MediaTypeOptions.Images,
+  //     allowsEditing: true,
+  //     aspect: [4, 3],
+  //     quality: 1,
+  //   });
 
-    if (!result.cancelled) {
-      setImage(result.uri);
-    }
-    setModalVisible(false);
-  };
+  //   if (!result.cancelled) {
+  //     setImage(result.uri);
+  //   }
+  //   setModalVisible(false);
+  // };
 
-  const openCamera = async () => {
-    if (cameraPermission.status === "granted") {
-      setModalVisible(false);
-      // You can navigate to the camera screen or add camera functionality here
-    } else {
-      alert("Camera permission is required to use the camera.");
-    }
-  };
+  // const openCamera = async () => {
+  //   if (cameraPermission.status === "granted") {
+  //     setModalVisible(false);
+  
+  //   } else {
+  //     alert("Camera permission is required to use the camera.");
+  //   }
+  // };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -92,7 +92,7 @@ const ProfileScreen = ({ navigation }) => {
         <View style={styles.modalContainer}>
           <CustomButton
             title="Pick an image from the camera roll"
-            onPress={pickImage}
+            // onPress={pickImage}
           />
           <CustomButton title="Open Camera" onPress={openCamera} />
           <CustomButton title="Cancel" onPress={() => setModalVisible(false)} />

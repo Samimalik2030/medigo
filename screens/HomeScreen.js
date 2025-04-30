@@ -30,7 +30,7 @@ const HomeScreen = () => {
         >
           <View style={styles.topContainer}>
             <BlurView intensity={20} style={styles.blurContainer}>
-              <Text style={styles.greetingName}>Hello, Rajkumar</Text>
+              <Text style={styles.greetingName}>Hello, Sir</Text>
               <Image
                 source={require("../assets/avatar.jpg")}
                 style={styles.avatar}
@@ -47,7 +47,7 @@ const HomeScreen = () => {
                 >
                   <FontAwesome5 name="phone" size={20} color="#00b894" />
                   <Text style={styles.contactButtonText}>
-                    Call us at: (123) 456-7890
+                    Call us at: (+92) 304456-7890
                   </Text>
                 </TouchableOpacity>
               </View>

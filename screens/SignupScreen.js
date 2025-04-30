@@ -20,6 +20,7 @@ import CustomButton from "../components/CustomButton";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import { BlurView } from "expo-blur";
+import { useAuth } from "../AuthContext";
 
 const SignupScreen = () => {
   const [name, setName] = useState("");
@@ -33,11 +34,12 @@ const SignupScreen = () => {
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [chosenDate, setChosenDate] = useState(new Date());
-
+const {updateAuthentication} = useAuth()
   const navigation = useNavigation();
 
-  const apiEndpoint =
-    " https://60e1-2409-4088-ae8d-1ce-4a8d-684c-10e6-3d84.ngrok.io/api/auth/signup";
+  const apiEndpoint = "http://192.168.18.25:5000/api/auth/signup";
+
+
 
   const handleGoToSignin = () => {
     navigation.navigate("Signin");
@@ -119,7 +121,8 @@ const SignupScreen = () => {
 
         // Registration successful
         Alert.alert("Success", "Account created successfully!");
-        navigation.navigate("Home")
+        updateAuthentication(true)
+        // navigation.navigate("Home")
       } else {
         throw new Error("Registration failed");
       }
