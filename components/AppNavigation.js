@@ -9,6 +9,7 @@ import DoctorDetailsScreen from "../screens/DoctorDetailsScreen";
 import AppointmentBookingScreen from "../screens/AppointmentBookingScreen";
 import ViewAppointmentsScreen from "../screens/ViewAppointmentsScreen";
 import MyProfileScreen from "../screens/MyProfileScreen";
+import AppointmentDetailsScreen from "../screens/AppointmentDetailsScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -63,7 +64,7 @@ const AppNavigation = () => {
 
       <Tab.Screen
         name="Appointment Booking"
-        component={AppointmentBookingScreen}
+        component={AppointmentDetailsScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="calendar" size={size} color={color} />
